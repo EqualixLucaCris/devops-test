@@ -17,4 +17,4 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Verifica che README esista e non sia vuoto
-        run: test -s file-inesistente.md
+        run: test -s README.md
