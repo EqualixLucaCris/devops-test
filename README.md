@@ -1,1 +1,1 @@
-Questo é un progetto di test per operare con git
+Creeremo una pipeline base per capire il funzionamento di un trigger
