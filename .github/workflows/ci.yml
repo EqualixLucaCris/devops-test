@@ -1,0 +1,20 @@
+name: Controllo progetto
+
+on:
+  push:
+    branches: [dev/features]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verifica-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recupera il codice
+        uses: actions/checkout@v7
+
+      - name: Verifica che README esista e non sia vuoto
+        run: test -s README.md
