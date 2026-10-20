@@ -1,0 +1,11 @@
+name: Prova manuale
+
+on:
+  workflow_dispatch:
+
+jobs:
+  saluto:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stampa un saluto
+        run: echo "Ciao Luca"
