@@ -1,0 +1,56 @@
+name: Validate and deploy website
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Verify page exists and is not empty
+        run: test -s site/index.html
+
+      - name: Verify page title
+        run: grep -Fq '<title>IT&amp;Automation Blog</title>' site/index.html
+
+  deploy:
+    needs: test
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website files
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
+
+
